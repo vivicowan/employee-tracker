@@ -18,8 +18,8 @@ const connection = mysql.createConnection({
  });
  
 const runBanner = () => {
-	const banner_wall = chalk.bold.blueBright('\n=====================================================================================\n');
-	const banner_msg = chalk.bold.blue(figlet.textSync('Employee Tracker'));
+	const banner_wall = chalk.bold.blueBright("\n=====================================================================================\n");
+	const banner_msg = chalk.bold.blue(figlet.textSync("Employee Tracker"));
 	const app_author = chalk.bold.white(`\n\n                           By: Vivianna Cowan\n`);
   	console.log(banner_wall + banner_msg + app_author + banner_wall);
 };
@@ -34,33 +34,33 @@ const runOptions = () => {
 		new inquirer.Separator(
 			"|-----------------Viewing----------------------|"
 		),
-		'View all Departments',
-		'View all Roles',
-		'View all Employees',
-		'View Employee By Manager',
-		'View Employee By Department',
+		"View all Departments",
+		"View all Roles",
+		"View all Employees",
+		"View Employee By Manager",
+		"View Employee By Department",
 		new inquirer.Separator(
 			"|-----------------Adding-----------------------|"
 		),
-		'Add Department',
-		'Add Roles',
-		'Add Employees',
+		"Add Department",
+		"Add Roles",
+		"Add Employees",
 		new inquirer.Separator(
 			"|-----------------Deleting---------------------|"
 		),
-		'Delete Department',
-		'Delete Roles',
-		'Delete Employee',
+		"Delete Department",
+		"Delete Roles",
+		"Delete Employee",
 		new inquirer.Separator(
 			"|-----------------Updating---------------------|"
 		),
-		'Update Employee Department',
-		'Update Employee Roles',
-		'Update Employee Manager',
+		"Update Employee Department",
+		"Update Employee Roles",
+		"Update Employee Manager",
 		new inquirer.Separator(
 			"|-----------------Exiting----------------------|"
 		),
-		'Exit',
+		"Exit",
 	  ],
 	})
 	.then((answer) => {
@@ -69,7 +69,7 @@ const runOptions = () => {
 				 viewDepartments();
 				break;
 			case "View all Roles":
-				//  viewRoles();
+				 viewRoles();
 				break;
 			case "View all Employees":
 				//  viewEmployees();
@@ -109,7 +109,7 @@ const runOptions = () => {
 				break;
 			default:
 				connection.end();
-				console.log('Have a nice day');
+				console.log("Have a nice day");
 				break;
 	   }
 	});
@@ -118,10 +118,20 @@ const runOptions = () => {
 
 const viewDepartments = () => {
 	connection.query(
-		'SELECT * FROM Department', (err, res) => {
+		"SELECT * FROM department", (err, res) => {
 			if (err) throw err;
 			console.table(res)
 			runOptions();
 		}
   )
 };
+
+const viewRoles = () => {
+	connection.query(
+		"SELECT * FROM role", (err, res) => {
+			if (err) throw err;
+			console.table(res)
+			runOptions();
+		}
+  )
+}
