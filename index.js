@@ -34,27 +34,29 @@ const runOptions = () => {
 		new inquirer.Separator(
 			"|-----------------Viewing----------------------|"
 		),
-		'View all departments',
+		'View all Departments',
 		'View all Roles',
-		'View all employees',
+		'View all Employees',
+		'View Employee By Manager',
+		'View Employee By Department',
 		new inquirer.Separator(
 			"|-----------------Adding-----------------------|"
 		),
-		'Add department',
+		'Add Department',
 		'Add Roles',
 		'Add Employees',
 		new inquirer.Separator(
 			"|-----------------Deleting---------------------|"
 		),
-		'Delete Departments',
-		'Delete Employee',
+		'Delete Department',
 		'Delete Roles',
+		'Delete Employee',
 		new inquirer.Separator(
 			"|-----------------Updating---------------------|"
 		),
+		'Update Employee Department',
 		'Update Employee Roles',
-		'Update employee manager',
-		'View Employee By Manager',
+		'Update Employee Manager',
 		new inquirer.Separator(
 			"|-----------------Exiting----------------------|"
 		),
@@ -63,41 +65,47 @@ const runOptions = () => {
 	})
 	.then((answer) => {
 		switch (answer.option) {
-			case "View all departments":
-				//  viewAllDepartments();
+			case "View all Departments":
+				//  viewDepartments();
 				break;
 			case "View all Roles":
-				//  viewAllRoles();
+				//  viewRoles();
 				break;
-			case "View all employees":
-				//  viewAllEmployees();
+			case "View all Employees":
+				//  viewEmployees();
 				break;
-			case "Add department":
+			case "View Employee By Manager":
+				//  viewEmployeeByManager()
+				break;
+			case "View Employee By Department":
+				//  viewEmployeeByDepartment()
+				break;
+			case "Add Department":
 				//  addDepartment();
 				break;
 			case "Add Roles":
-				//  addRoles();
+				//  addRole();
 				break;
 			case "Add Employees":
 				//  addEmployee();
 				break;
+			case "Update Employee Department":
+				//  updateDepartment()
+				break;
 			case "Update Employee Roles":
-				//  updateEmployeeRole();
+				//  updateRole();
 				break;
-			case "Delete Departments":
+			case "Update Employee Manager":
+				//  updateManager()
+				break;
+			case "Delete Department":
 				//  deleteDepartment();
-				break;
-			case "Delete Employee":
-				//  deleteEmployee();
 				break;
 			case "Delete Roles":
 				//  deleteRole();
 				break;
-			case "Update employee manager":
-				//  updateManager()
-				break;
-			case "View Employee By Manager":
-				//  viewEmployeeByManager()
+			case "Delete Employee":
+				//  deleteEmployee();
 				break;
 			default:
 				connection.end();
