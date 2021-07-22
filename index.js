@@ -66,7 +66,7 @@ const runOptions = () => {
 	.then((answer) => {
 		switch (answer.option) {
 			case "View all Departments":
-				//  viewDepartments();
+				 viewDepartments();
 				break;
 			case "View all Roles":
 				//  viewRoles();
@@ -114,4 +114,14 @@ const runOptions = () => {
 	   }
 	});
 
+};
+
+const viewDepartments = () => {
+	connection.query(
+		'SELECT * FROM Department', (err, res) => {
+			if (err) throw err;
+			console.table(res)
+			runOptions();
+		}
+  )
 };
