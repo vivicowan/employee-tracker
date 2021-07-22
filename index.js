@@ -13,5 +13,12 @@ const connection = mysql.createConnection({
  
  connection.connect((err) => {
 	if (err) throw err;
+	runBanner();
  });
  
+const runBanner = () => {
+	const banner_wall = chalk.bold.blueBright('\n=====================================================================================\n');
+	const banner_msg = chalk.bold.blue(figlet.textSync('Employee Tracker'));
+	const app_author = chalk.bold.white(`\n\n                           By: Vivianna Cowan\n`);
+  	console.log(banner_wall + banner_msg + app_author + banner_wall);
+}
