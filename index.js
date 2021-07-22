@@ -28,21 +28,36 @@ const runOptions = () => {
 	inquirer
 	.prompt({
 	  name: "option",
-	  type: "rawlist",
+	  type: "list",
 	  message: "What would you like to do?",
 	  choices: [
+		new inquirer.Separator(
+			"|-----------------Viewing----------------------|"
+		),
 		'View all departments',
 		'View all Roles',
 		'View all employees',
+		new inquirer.Separator(
+			"|-----------------Adding-----------------------|"
+		),
 		'Add department',
 		'Add Roles',
 		'Add Employees',
+		new inquirer.Separator(
+			"|-----------------Deleting---------------------|"
+		),
 		'Delete Departments',
 		'Delete Employee',
 		'Delete Roles',
+		new inquirer.Separator(
+			"|-----------------Updating---------------------|"
+		),
 		'Update Employee Roles',
 		'Update employee manager',
 		'View Employee By Manager',
+		new inquirer.Separator(
+			"|-----------------Exiting----------------------|"
+		),
 		'Exit',
 	  ],
 	})
@@ -50,51 +65,44 @@ const runOptions = () => {
 		switch (answer.option) {
 			case "View all departments":
 				//  viewAllDepartments();
-				 break;
-
+				break;
 			case "View all Roles":
 				//  viewAllRoles();
-				 break;
-
+				break;
 			case "View all employees":
 				//  viewAllEmployees();
-				 break;
-
+				break;
 			case "Add department":
 				//  addDepartment();
-				 break;
-
+				break;
 			case "Add Roles":
 				//  addRoles();
-				 break;
-
+				break;
 			case "Add Employees":
 				//  addEmployee();
-				 break;
-
+				break;
 			case "Update Employee Roles":
 				//  updateEmployeeRole();
-				 break;
-
+				break;
 			case "Delete Departments":
 				//  deleteDepartment();
-				 break;
+				break;
 			case "Delete Employee":
 				//  deleteEmployee();
-				 break;
+				break;
 			case "Delete Roles":
 				//  deleteRole();
-				 break;
+				break;
 			case "Update employee manager":
 				//  updateManager()
-				 break;
+				break;
 			case "View Employee By Manager":
 				//  viewEmployeeByManager()
-				 break;
-			case "Exit":
-				 connection.end();
-				 console.log('Have a good day');
-				 break;
+				break;
+			default:
+				connection.end();
+				console.log('Have a nice day');
+				break;
 	   }
 	});
 
