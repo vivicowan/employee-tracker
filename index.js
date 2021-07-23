@@ -168,14 +168,14 @@ const viewEmployeeByDepartment = () => {
 	inquirer
     .prompt([
       {
-        name: "byManager",
+        name: "byDepartment",
         type: "input",
-        message: "Please input the manager ID to find an employee by their manager.",
+        message: "Please input the department ID to find an employee by their department.",
       }
     ])
     .then( (answers) => {
-      const byManager = answers.byManager;
-		connection.query("SELECT e.id 'Employee ID', CONCAT(e.first_name,' ',e.last_name ) 'Employee Name', d.name 'Department', r.title 'Job Title' FROM employee e LEFT JOIN roles r ON r.id = e.role_id LEFT JOIN department d ON d.id = r.department_id WHERE manager_id = ?", byManager, (err, res) => {
+      const byDepartment = answers.byDepartment;
+		connection.query("SELECT e.id 'Employee ID', CONCAT(e.first_name,' ',e.last_name ) 'Employee Name', r.title 'Job Title', d.name 'Department' FROM employee e LEFT JOIN roles r ON e.role_id = r.id LEFT JOIN department d ON r.department_id = d.id WHERE d.id = ?", byDepartment, (err, res) => {
       	if (err) throw err;
 			console.table(res);
       	runOptions();
