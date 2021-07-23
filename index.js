@@ -50,17 +50,16 @@ const runOptions = () => {
         "Add Roles",
         "Add Employees",
         new inquirer.Separator(
+          "|-----------------Updating---------------------|"
+        ),
+        "Update Employee Roles",
+        "Update Employee Manager",
+        new inquirer.Separator(
           "|-----------------Deleting---------------------|"
         ),
         "Delete Department",
         "Delete Roles",
         "Delete Employee",
-        new inquirer.Separator(
-          "|-----------------Updating---------------------|"
-        ),
-        "Update Employee Department",
-        "Update Employee Roles",
-        "Update Employee Manager",
         new inquirer.Separator(
           "|-----------------Exiting----------------------|"
         ),
@@ -93,11 +92,8 @@ const runOptions = () => {
         case "Add Employees":
            addEmployee();
           break;
-        case "Update Employee Department":
-          //  updateDepartment()
-          break;
         case "Update Employee Roles":
-          //  updateRole();
+           updateRole();
           break;
         case "Update Employee Manager":
           //  updateManager()
@@ -184,6 +180,7 @@ const viewEmployeeByDepartment = () => {
 }
 
 
+
 const addDepartment = () => {
 	inquirer
     .prompt([
@@ -260,7 +257,7 @@ const addEmployee = () => {
 
 		connection.query("SELECT * FROM employee", (err, res) => {
 			const managers = res.map((manager) => { 
-				return {name: `${manager.first_name} ${manager.last_name}`, value: manager.id,}
+				return {name: `${manager.first_name} ${manager.last_name}`, value: manager.id}
 			});
 			
 			inquirer
@@ -307,4 +304,50 @@ const addEmployee = () => {
 		})
    })
 }
-    
+
+
+
+const updateRole = () => {
+  connection.query("SELECT * FROM employee", (err, res) => {
+		if (err) throw err;
+		const employeeChoices = res.map((employee) => { 
+			return {name: employee.first_name , value: employee.id}
+		});
+
+		connection.query("SELECT * FROM roles", (err, res) => {
+      if (err) throw err;
+      const roles = res.map((erole) => { 
+        return {name: erole.title, value: erole.id}
+      });
+			
+			inquirer
+				.prompt([
+					{
+						type: 'list',
+            name: 'employeeId',
+            choices: employeeChoices,
+            message: 'Please select the employee you want to update a role.'
+					},
+					{
+						type: 'list',
+            name: 'roleId',
+            choices: roles,
+            message: 'Please select a role.'
+					}
+				])
+				.then( (answers) => {
+          const role = answers.roleId;
+          const employee = answers.employeeId; 
+					connection.query("UPDATE employee SET role_id = ? WHERE id = ?", [role, employee], (err, res) => {
+            if (err) throw err;
+						console.log(`
+############################################
+	Employee's Role Updated 
+############################################
+						`);
+						runOptions();
+					});
+				});
+	  	})
+   })
+}
