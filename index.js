@@ -1,3 +1,4 @@
+// importing npm and node modules
 const mysql = require("mysql");
 const inquirer = require("inquirer");
 const chalk = require("chalk");
@@ -11,6 +12,7 @@ const connection = mysql.createConnection({
   database: "employee_trackerDB",
 });
 
+// initializing the command line application
 connection.connect((err) => {
   if (err) throw err;
   runBanner();
@@ -28,6 +30,7 @@ const runBanner = () => {
   console.log(banner_wall + banner_msg + app_author + banner_wall);
 };
 
+// Creating a runOptions function to serve as the main menu
 const runOptions = () => {
   inquirer
     .prompt({
@@ -53,11 +56,6 @@ const runOptions = () => {
           "|-----------------Updating---------------------|"
         ),
         "Update Employee Roles",
-        new inquirer.Separator(
-          "|-----------------Deleting---------------------|"
-        ),
-        "Delete Employee",
-        "Delete Roles",
         new inquirer.Separator(
           "|-----------------Exiting----------------------|"
         ),
@@ -101,6 +99,7 @@ const runOptions = () => {
     });
 };
 
+// Functions for Viewing 
 const viewDepartments = () => {
   connection.query("SELECT d.id 'Department ID', d.name 'Department' FROM department d",
     (err, res) => {
@@ -166,7 +165,7 @@ const viewEmployeeByDepartment = () => {
 }
 
 
-
+// Functions for Adding
 const addDepartment = () => {
 	inquirer
     .prompt([
@@ -292,7 +291,7 @@ const addEmployee = () => {
 }
 
 
-
+// Function to Update 
 const updateRole = () => {
   connection.query("SELECT * FROM employee", (err, res) => {
 		if (err) throw err;
