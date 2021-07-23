@@ -88,7 +88,7 @@ const runOptions = () => {
            addDepartment();
           break;
         case "Add Roles":
-          //  addRole();
+           addRole();
           break;
         case "Add Employees":
           //  addEmployee();
@@ -183,6 +183,7 @@ const viewEmployeeByDepartment = () => {
 	});
 }
 
+
 const addDepartment = () => {
 	inquirer
     .prompt([
@@ -205,3 +206,49 @@ const addDepartment = () => {
       });
 	});
 }
+
+const addRole = () => {
+	connection.query("SELECT * FROM department", (err, res) => {
+		if (err) throw err;
+		// once you have the items, prompt the user for which they'd like to bid on
+		const departments = res.map((dept) => { 
+			return {name: dept.name, value: dept.id}
+		});
+		inquirer
+			.prompt([
+				{
+               type: 'input',
+               name: 'roles',
+               message: 'Please add a role:'
+            },
+			   {
+               type: 'input',
+               name: 'salary',
+               message: 'Please enter a salary:'
+            },
+            {
+               type: 'list',
+               name: 'depts',
+               choices: departments,
+               message: 'Please select your department.'
+            }
+         ])
+			.then( (answers) => {
+				const role = { 
+					title: answers.roles, 
+					salary: answers.salary, 
+					department_id: answers.depts};
+				connection.query("INSERT INTO roles SET ?", role, (err, res) => {
+					if (err) throw err;
+					console.log(`
+##############################
+	Role Added	
+##############################
+					`);
+					runOptions();
+				});			
+			});
+      })
+}
+
+    
