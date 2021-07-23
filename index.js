@@ -85,7 +85,7 @@ const runOptions = () => {
            viewEmployeeByDepartment()
           break;
         case "Add Department":
-          //  addDepartment();
+           addDepartment();
           break;
         case "Add Roles":
           //  addRole();
@@ -178,6 +178,29 @@ const viewEmployeeByDepartment = () => {
 		connection.query("SELECT e.id 'Employee ID', CONCAT(e.first_name,' ',e.last_name ) 'Employee Name', r.title 'Job Title', d.name 'Department' FROM employee e LEFT JOIN roles r ON e.role_id = r.id LEFT JOIN department d ON r.department_id = d.id WHERE d.id = ?", byDepartment, (err, res) => {
       	if (err) throw err;
 			console.table(res);
+      	runOptions();
+      });
+	});
+}
+
+const addDepartment = () => {
+	inquirer
+    .prompt([
+      {
+        name: "department",
+        type: "input",
+        message: "Please input the department ID to find an employee by their department.",
+      }
+    ])
+    .then( (answers) => {
+      const department = answers.department;
+		connection.query("INSERT INTO department SET name = ?", department, (err, res) => {
+      	if (err) throw err;
+			console.log(`
+##############################
+	Department Added
+##############################
+	      `);
       	runOptions();
       });
 	});
