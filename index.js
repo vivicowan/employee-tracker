@@ -53,13 +53,11 @@ const runOptions = () => {
           "|-----------------Updating---------------------|"
         ),
         "Update Employee Roles",
-        "Update Employee Manager",
         new inquirer.Separator(
           "|-----------------Deleting---------------------|"
         ),
-        "Delete Department",
-        "Delete Roles",
         "Delete Employee",
+        "Delete Roles",
         new inquirer.Separator(
           "|-----------------Exiting----------------------|"
         ),
@@ -94,18 +92,6 @@ const runOptions = () => {
           break;
         case "Update Employee Roles":
            updateRole();
-          break;
-        case "Update Employee Manager":
-          //  updateManager()
-          break;
-        case "Delete Department":
-          //  deleteDepartment();
-          break;
-        case "Delete Roles":
-          //  deleteRole();
-          break;
-        case "Delete Employee":
-          //  deleteEmployee();
           break;
         default:
           connection.end();
@@ -351,3 +337,4 @@ const updateRole = () => {
 	  	})
    })
 }
+
