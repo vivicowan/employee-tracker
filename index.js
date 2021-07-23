@@ -79,10 +79,10 @@ const runOptions = () => {
           viewEmployees();
           break;
         case "View Employee By Manager":
-          //  viewEmployeeByManager()
+           viewEmployeeByManager()
           break;
         case "View Employee By Department":
-          //  viewEmployeeByDepartment()
+           viewEmployeeByDepartment()
           break;
         case "Add Department":
           //  addDepartment();
@@ -144,3 +144,41 @@ const viewEmployees = () => {
     runOptions();
   });
 };
+
+const viewEmployeeByManager = () => {
+	inquirer
+    .prompt([
+      {
+        name: "byManager",
+        type: "input",
+        message: "Please input the manager ID to find an employee by their manager.",
+      }
+    ])
+    .then( (answers) => {
+      const byManager = answers.byManager;
+		connection.query("SELECT e.id 'Employee ID', CONCAT(e.first_name,' ',e.last_name ) 'Employee Name', d.name 'Department', r.title 'Job Title' FROM employee e LEFT JOIN roles r ON r.id = e.role_id LEFT JOIN department d ON d.id = r.department_id WHERE manager_id = ?", byManager, (err, res) => {
+      	if (err) throw err;
+			console.table(res);
+      	runOptions();
+      });
+	});
+}
+
+const viewEmployeeByDepartment = () => {
+	inquirer
+    .prompt([
+      {
+        name: "byManager",
+        type: "input",
+        message: "Please input the manager ID to find an employee by their manager.",
+      }
+    ])
+    .then( (answers) => {
+      const byManager = answers.byManager;
+		connection.query("SELECT e.id 'Employee ID', CONCAT(e.first_name,' ',e.last_name ) 'Employee Name', d.name 'Department', r.title 'Job Title' FROM employee e LEFT JOIN roles r ON r.id = e.role_id LEFT JOIN department d ON d.id = r.department_id WHERE manager_id = ?", byManager, (err, res) => {
+      	if (err) throw err;
+			console.table(res);
+      	runOptions();
+      });
+	});
+}
