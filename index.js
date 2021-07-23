@@ -189,7 +189,7 @@ const addDepartment = () => {
       {
         name: "department",
         type: "input",
-        message: "Please input the department ID to find an employee by their department.",
+        message: "What is the name of the department you would like to add?",
       }
     ])
     .then( (answers) => {
