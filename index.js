@@ -91,7 +91,7 @@ const runOptions = () => {
            addRole();
           break;
         case "Add Employees":
-          //  addEmployee();
+           addEmployee();
           break;
         case "Update Employee Department":
           //  updateDepartment()
@@ -210,7 +210,7 @@ const addDepartment = () => {
 const addRole = () => {
 	connection.query("SELECT * FROM department", (err, res) => {
 		if (err) throw err;
-		// once you have the items, prompt the user for which they'd like to bid on
+
 		const departments = res.map((dept) => { 
 			return {name: dept.name, value: dept.id}
 		});
@@ -251,4 +251,52 @@ const addRole = () => {
       })
 }
 
+const addEmployee = () => {
+	connection.query("SELECT * FROM roles", (err, res) => {
+		if (err) throw err;
+
+		const role = res.map((erole) => { 
+			return {name: erole.name, value: erole.id}
+		});
+		inquirer
+			.prompt([
+				{
+					type: "input",
+					message: "What is your employee's first name?",
+					name: "firstName",
+				},
+				{
+					type: "input",
+					message: "What is your employee's last name?",
+					name: "lastName",
+				},
+				{
+					type: "input",
+					message: "What is your employee's role ID?",
+					name: "roleId",
+				},
+				{
+					type: "input",
+					message: "What is your employee's manager ID",
+					name: "managerId",
+				},
+			])
+			.then( (answers) => {
+				const employee = {
+					first_name: answers.firstName, 
+					last_name: answers.lastName, 
+					role_id: answers.roleId,
+					manager_id: answers.managerId};
+				connection.query("INSERT INTO employee SET ?", employee, (err, res) => {
+					if (err) throw err;
+					console.log(`
+##############################
+	Employee Added
+##############################
+					`);
+					runOptions();
+			   });
+	   	});
+   })
+}
     
